@@ -919,6 +919,8 @@ h6 {
 .service:hover {
 	transform: translateY(-2px);
 	box-shadow: 0 12px 30px var(--shadow);
+	border-color: var(--accent);
+	background: linear-gradient(0deg, rgba(31, 122, 140, 0.06), rgba(31, 122, 140, 0.06)), var(--card);
 }
 .service.active {
 	border-color: var(--accent);
