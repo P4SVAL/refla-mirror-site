@@ -8,7 +8,7 @@ export default function Document() {
 				{/* Мета-описание для поисковых систем */}
 				<meta
 					name='description'
-					content='LOOKIN — установка зеркал на входные двери. Красиво, безопасно, быстро.'
+					content='REFLA — установка зеркал на входные двери. Красиво, безопасно, быстро.'
 				/>
 
 				{/* Favicon в виде emoji-зеркала */}
