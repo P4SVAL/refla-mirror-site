@@ -125,7 +125,6 @@ export default function Home() {
 		},
 	]
 
-
 	// FAQ
 	const faqs: Array<{ q: string; a: string }> = [
 		{

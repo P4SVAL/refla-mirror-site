@@ -1,6 +1,7 @@
-// pages/pricing.tsx
+'use client'
+
 import * as React from 'react'
-import QuoteLeadForm from '../components/QuoteLeadForm'
+import QuoteLeadForm from 'components/QuoteLeadForm'
 
 /* ============================================
    Типы и утилиты
@@ -81,7 +82,6 @@ const SERVICES: Service[] = [
 			'Подбор толщины и кромки',
 			'Черновая смета и сроки',
 		],
-		// note: 'В СПБ — бесплатно. В области — 27 ₽/км от КАД (туда-обратно).',
 	},
 	{
 		id: 'edge',
@@ -134,7 +134,6 @@ const SERVICES: Service[] = [
 		id: 'glass_tempered',
 		kind: 'glass',
 		name: 'Зеркало закалённое',
-		// highlight: 'popular',
 		pricing: { spb: RUB_M2(6590), area: RUB_M2(6590) },
 		description:
 			'Безопасное 4–6 мм: устойчиво к перепадам и повседневной нагрузке.',
@@ -213,11 +212,13 @@ const SERVICES: Service[] = [
 /* ============================================
    Калькулятор (константы/состояние)
    ============================================ */
+type EdgeType = 'polish' | 'facet' | 'none'
+
 type CalcState = {
 	region: Region
 	width: number // допускаем NaN для удобного редактирования
 	height: number
-	edgeType: 'polish' | 'facet' | 'none'
+	edgeType: EdgeType
 	edgeMeters: number // 0 — авто по периметру
 	includeMount: boolean
 	includeDemount: boolean
@@ -231,10 +232,11 @@ const FACET_EXTRA = 1.6
 const MOUNT_FROM = 3750
 const DEMOUNT_FROM = 1650
 
-const mm2ToM2 = (w: number, h: number) =>
-	(Math.max(w, 0) * Math.max(h, 0)) / 1_000_000
-const perimeterMeters = (w: number, h: number) =>
-	((Math.max(w, 0) + Math.max(h, 0)) * 2) / 1000
+const mmToM2 = (wMm: number, hMm: number) =>
+	(Math.max(wMm, 0) * Math.max(hMm, 0)) / 1_000_000
+
+const perimeterMeters = (wMm: number, hMm: number) =>
+	((Math.max(wMm, 0) + Math.max(hMm, 0)) * 2) / 1000
 
 // Хелперы по материалам
 const isGlass = (id: ServiceId): id is GlassId =>
@@ -271,7 +273,7 @@ function calcTotal(s: CalcState) {
 	const edgeM = Number.isFinite(s.edgeMeters) ? (s.edgeMeters as number) : 0
 	const km = Number.isFinite(s.kmFromKAD) ? (s.kmFromKAD as number) : 0
 
-	const m2 = mm2ToM2(w, h)
+	const m2 = mmToM2(w, h)
 	const perim = edgeM > 0 ? edgeM : perimeterMeters(w, h)
 
 	// ==== стекло: берём РОВНО ОДИН выбранный материал
@@ -378,9 +380,9 @@ function PriceView({ price, region }: { price: Price; region: Region }) {
 }
 
 /* ============================================
-   Компонент страницы
+   Компонент (клиент)
    ============================================ */
-export default function Pricing() {
+export function PricingClient() {
 	const [region, setRegion] = React.useState<Region>('spb')
 
 	// Старт: ничего не выбрано, итог = 0 ₽. Поля допускают NaN для удобного редактирования.
@@ -495,22 +497,6 @@ export default function Pricing() {
 					</div>
 				</header>
 
-				{/* Инфо-плашка под Hero */}
-				{/* <div className='pricing__notice muted'>
-					{region === 'spb' ? (
-						'По городу: замер — бесплатно; надбавок на работы нет.'
-					) : (
-						<>
-							Для области: замер — 27 ₽/км (в обе стороны, ×2) от КАД
-							<br />
-							на работы действует надбавка ~9% (везём хрупкое, едем далеко)
-						</>
-					)}
-					<h2>
-						<b>УСЛУГИ:</b>
-					</h2>
-				</div> */}
-
 				{/* Кликабельные карточки услуг (и материалов) */}
 				<section className='pricing__cards'>
 					{services.map(s => {
@@ -567,16 +553,6 @@ export default function Pricing() {
 
 				{/* Калькулятор — БЕЗ блока «Монтаж / Демонтаж» (только карточки) */}
 				<section className='card calc'>
-					{/* <div className='calc-head'>
-						<div>
-							<div className='calc-title'>Параметры двери:</div>
-							<div className='muted'>
-								Размеры, кромка и расстояние — расчёт обновляется мгновенно.
-							</div>
-						</div>
-						<div className='calc-chip'>Калькулятор</div>
-					</div> */}
-
 					<div className='calc-grid'>
 						{/* Размеры */}
 						<div className='calc-field'>
@@ -658,7 +634,7 @@ export default function Pricing() {
 						</div>
 
 						<div className='calc-field'>
-							<label className='label'>Периметр кромки (в см)</label>
+							<label className='label'>Периметр кромки (в м)</label>
 							<input
 								className='input'
 								type='number'

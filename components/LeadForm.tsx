@@ -1,3 +1,5 @@
+'use client'
+
 import { useMemo, useState } from 'react'
 
 const API_ENDPOINT = 'https://refla.ru/api/lead.php' // ваш prod API

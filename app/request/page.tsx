@@ -1,4 +1,4 @@
-import LeadForm from '../components/LeadForm'
+import LeadForm from 'components/LeadForm'
 
 // Страница "Оставить заявку": отдельный маршрут с формой
 export default function RequestPage() {
