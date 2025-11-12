@@ -467,10 +467,9 @@ export function PricingClient() {
 	}
 
 	return (
-		<section className='card pricing'>
-			<div className='container'>
-				{/* HERO */}
-				<header className='pricing__hero'>
+		<div className='home home__grid'>
+			<section className='card about__section about__section--soft'>
+				<div className='pricing__hero'>
 					<h1 className='pricing__hero-title'>
 						<span className='pricing__hero-main'>
 							Прайс — выберите услуги и получите предварительный расчёт
@@ -495,247 +494,239 @@ export function PricingClient() {
 							Область
 						</button>
 					</div>
-				</header>
-
-				{/* Кликабельные карточки услуг (и материалов) */}
-				<section className='pricing__cards'>
-					{services.map(s => {
-						const price = s.pricing[region]
-						const active = state.selected.has(s.id)
-						return (
-							<button
-								key={s.id}
-								type='button'
-								className={`card service ${active ? 'active' : ''}`}
-								onClick={() => toggleService(s.id)}
-								aria-pressed={active}
-								aria-label={`${active ? 'Убрать' : 'Выбрать'}: ${s.name}`}
-							>
-								{s.highlight ? (
-									<div
-										className={`ribbon ${
-											s.highlight === 'best' ? 'ribbon-best' : 'ribbon-pop'
-										}`}
-									>
-										{s.highlight === 'best' ? 'Лучший выбор' : 'Популярно'}
-									</div>
-								) : null}
-
-								<div className='checkmark' aria-hidden>
-									{active ? '✔' : ''}
+				</div>
+			</section>
+			{/* Кликабельные карточки услуг (и материалов) */}
+			<section className='pricing__cards'>
+				{services.map(s => {
+					const price = s.pricing[region]
+					const active = state.selected.has(s.id)
+					return (
+						<button
+							key={s.id}
+							type='button'
+							className={`card service ${active ? 'active' : ''}`}
+							onClick={() => toggleService(s.id)}
+							aria-pressed={active}
+							aria-label={`${active ? 'Убрать' : 'Выбрать'}: ${s.name}`}
+						>
+							{/* {s.highlight ? (
+								<div
+									className={`ribbon ${
+										s.highlight === 'best' ? 'ribbon-best' : 'ribbon-pop'
+									}`}
+								>
+									{s.highlight === 'best' ? 'Лучший выбор' : 'Популярно'}
 								</div>
+							) : null} */}
 
-								<div className='service-head'>
-									<div className='service-title'>{s.name}</div>
-								</div>
-
-								{s.description ? (
-									<div className='service-desc'>{s.description}</div>
-								) : null}
-
-								<div className='service-price'>
-									<PriceView price={price} region={region} />
-								</div>
-
-								{s.included?.length ? (
-									<ul className='included'>
-										{s.included.map((it, i) => (
-											<li key={i}>{it}</li>
-										))}
-									</ul>
-								) : null}
-
-								{s.note ? <div className='note'>ℹ️ {s.note}</div> : null}
-							</button>
-						)
-					})}
-				</section>
-
-				{/* Калькулятор — БЕЗ блока «Монтаж / Демонтаж» (только карточки) */}
-				<section className='card calc'>
-					<div className='calc-grid'>
-						{/* Размеры */}
-						<div className='calc-field'>
-							<label className='label'>Ширина двери (в мм)</label>
-							<input
-								className='input'
-								type='number'
-								min={300}
-								max={1200}
-								step={10}
-								value={Number.isFinite(state.width) ? state.width : ''}
-								onChange={e => {
-									const v = e.target.value
-									setState(p => ({ ...p, width: v === '' ? NaN : Number(v) }))
-								}}
-								onBlur={e => {
-									if (e.target.value === '')
-										setState(p => ({ ...p, width: 500 }))
-								}}
-							/>
-							<div className='helper'>Обычно 500–800 мм</div>
-						</div>
-
-						<div className='calc-field'>
-							<label className='label'>Высота двери (в мм)</label>
-							<input
-								className='input'
-								type='number'
-								min={800}
-								max={2300}
-								step={10}
-								value={Number.isFinite(state.height) ? state.height : ''}
-								onChange={e => {
-									const v = e.target.value
-									setState(p => ({ ...p, height: v === '' ? NaN : Number(v) }))
-								}}
-								onBlur={e => {
-									if (e.target.value === '')
-										setState(p => ({ ...p, height: 1600 }))
-								}}
-							/>
-							<div className='helper'>Обычно 1500–2000 мм</div>
-						</div>
-
-						{/* Кромка (отключится автоматически при стекле с включённым фацетом) */}
-						<div className='calc-field'>
-							<label className='label'>Тип кромки зеркала</label>
-							<select
-								className='input'
-								value={state.edgeType}
-								onChange={e =>
-									setState(p => ({
-										...p,
-										edgeType: e.target.value as typeof p.edgeType,
-									}))
-								}
-								disabled={
-									getSelectedGlass(state.selected) === 'glass_facet_incl'
-								}
-								aria-disabled={
-									getSelectedGlass(state.selected) === 'glass_facet_incl'
-								}
-								title={
-									getSelectedGlass(state.selected) === 'glass_facet_incl'
-										? 'Фацет уже включён в выбранный тип зеркала'
-										: undefined
-								}
-							>
-								<option value='none'>Без обработки</option>
-								<option value='polish'>Полировка (базово)</option>
-								<option value='facet'>Фацет (декоративно)</option>
-							</select>
-							<div className='helper'>
-								Кромка учитывается в расчёте, если включена карточка «Обработка
-								кромки».
-								{getSelectedGlass(state.selected) === 'glass_facet_incl' &&
-									' (для выбранного материала фацет уже включён)'}
+							<div className='checkmark' aria-hidden>
+								{active ? '✔' : ''}
 							</div>
-						</div>
 
+							<div className='service-title'>{s.name}</div>
+
+							{s.description ? (
+								<div className='service-desc'>{s.description}</div>
+							) : null}
+
+							{s.included?.length ? (
+								<ul className='included'>
+									{s.included.map((it, i) => (
+										<li key={i}>{it}</li>
+									))}
+								</ul>
+							) : null}
+
+							{s.note ? <div className='note'>ℹ️ {s.note}</div> : null}
+							<div className='service-price'>
+								<PriceView price={price} region={region} />
+							</div>
+						</button>
+					)
+				})}
+			</section>
+			{/* Калькулятор — БЕЗ блока «Монтаж / Демонтаж» (только карточки) */}
+			<section className='card calc'>
+				<div className='calc-grid'>
+					{/* Размеры */}
+					<div className='calc-field'>
+						<label className='label'>Ширина двери (в мм)</label>
+						<input
+							className='input'
+							type='number'
+							min={300}
+							max={1200}
+							step={10}
+							value={Number.isFinite(state.width) ? state.width : ''}
+							onChange={e => {
+								const v = e.target.value
+								setState(p => ({ ...p, width: v === '' ? NaN : Number(v) }))
+							}}
+							onBlur={e => {
+								if (e.target.value === '') setState(p => ({ ...p, width: 500 }))
+							}}
+						/>
+						<div className='helper'>Обычно 500–800 мм</div>
+					</div>
+
+					<div className='calc-field'>
+						<label className='label'>Высота двери (в мм)</label>
+						<input
+							className='input'
+							type='number'
+							min={800}
+							max={2300}
+							step={10}
+							value={Number.isFinite(state.height) ? state.height : ''}
+							onChange={e => {
+								const v = e.target.value
+								setState(p => ({
+									...p,
+									height: v === '' ? NaN : Number(v),
+								}))
+							}}
+							onBlur={e => {
+								if (e.target.value === '')
+									setState(p => ({ ...p, height: 1600 }))
+							}}
+						/>
+						<div className='helper'>Обычно 1500–2000 мм</div>
+					</div>
+
+					{/* Кромка (отключится автоматически при стекле с включённым фацетом) */}
+					<div className='calc-field'>
+						<label className='label'>Тип кромки зеркала</label>
+						<select
+							className='input'
+							value={state.edgeType}
+							onChange={e =>
+								setState(p => ({
+									...p,
+									edgeType: e.target.value as typeof p.edgeType,
+								}))
+							}
+							disabled={getSelectedGlass(state.selected) === 'glass_facet_incl'}
+							aria-disabled={
+								getSelectedGlass(state.selected) === 'glass_facet_incl'
+							}
+							title={
+								getSelectedGlass(state.selected) === 'glass_facet_incl'
+									? 'Фацет уже включён в выбранный тип зеркала'
+									: undefined
+							}
+						>
+							<option value='none'>Без обработки</option>
+							<option value='polish'>Полировка (базово)</option>
+							<option value='facet'>Фацет (декоративно)</option>
+						</select>
+						<div className='helper'>
+							Кромка учитывается в расчёте, если включена карточка «Обработка
+							кромки».
+							{getSelectedGlass(state.selected) === 'glass_facet_incl' &&
+								' (для выбранного материала фацет уже включён)'}
+						</div>
+					</div>
+
+					<div className='calc-field'>
+						<label className='label'>Периметр кромки (в м)</label>
+						<input
+							className='input'
+							type='number'
+							min={0}
+							step={0.1}
+							value={Number.isFinite(state.edgeMeters) ? state.edgeMeters : ''}
+							onChange={e => {
+								const v = e.target.value
+								setState(p => ({
+									...p,
+									edgeMeters: v === '' ? NaN : Number(v),
+								}))
+							}}
+							onBlur={e => {
+								if (e.target.value === '')
+									setState(p => ({ ...p, edgeMeters: 0 }))
+							}}
+							disabled={getSelectedGlass(state.selected) === 'glass_facet_incl'}
+						/>
+						<div className='helper'>0 — посчитаем по периметру размера</div>
+					</div>
+
+					{/* Расстояние — только для «Область» */}
+					{region === 'area' && (
 						<div className='calc-field'>
-							<label className='label'>Периметр кромки (в м)</label>
+							<label className='label'>
+								Расстояние от КАД (км, в одну сторону)
+							</label>
 							<input
 								className='input'
 								type='number'
 								min={0}
-								step={0.1}
-								value={
-									Number.isFinite(state.edgeMeters) ? state.edgeMeters : ''
-								}
+								step={1}
+								value={Number.isFinite(state.kmFromKAD) ? state.kmFromKAD : ''}
 								onChange={e => {
 									const v = e.target.value
 									setState(p => ({
 										...p,
-										edgeMeters: v === '' ? NaN : Number(v),
+										kmFromKAD: v === '' ? NaN : Number(v),
 									}))
 								}}
 								onBlur={e => {
 									if (e.target.value === '')
-										setState(p => ({ ...p, edgeMeters: 0 }))
+										setState(p => ({ ...p, kmFromKAD: 0 }))
 								}}
-								disabled={
-									getSelectedGlass(state.selected) === 'glass_facet_incl'
-								}
 							/>
-							<div className='helper'>0 — посчитаем по периметру размера</div>
+							<div className='helper'>
+								Учитывается, если выбран «Замер» (считаем туда-обратно).
+							</div>
 						</div>
+					)}
+				</div>
 
-						{/* Расстояние — только для «Область» */}
-						{region === 'area' && (
-							<div className='calc-field'>
-								<label className='label'>
-									Расстояние от КАД (км, в одну сторону)
-								</label>
-								<input
-									className='input'
-									type='number'
-									min={0}
-									step={1}
-									value={
-										Number.isFinite(state.kmFromKAD) ? state.kmFromKAD : ''
-									}
-									onChange={e => {
-										const v = e.target.value
-										setState(p => ({
-											...p,
-											kmFromKAD: v === '' ? NaN : Number(v),
-										}))
-									}}
-									onBlur={e => {
-										if (e.target.value === '')
-											setState(p => ({ ...p, kmFromKAD: 0 }))
-									}}
-								/>
-								<div className='helper'>
-									Учитывается, если выбран «Замер» (считаем туда-обратно).
-								</div>
-							</div>
-						)}
-					</div>
-
-					{/* Разбивка суммы */}
-					<div className='breakdown'>
-						{res.parts.glass ? (
-							<div className='line'>
-								<span>Зеркало, ~{res.m2.toFixed(2)} м²</span>
-								<b>{fmt(res.parts.glass)}</b>
-							</div>
-						) : null}
-						{res.enabled.edge ? (
-							<div className='line'>
-								<span>Кромка, ~{res.perim.toFixed(2)} м</span>
-								<b>{fmt(res.parts.edge)}</b>
-							</div>
-						) : null}
-						{res.enabled.mount ? (
-							<div className='line'>
-								<span>Монтаж</span>
-								<b>{fmt(res.parts.mount)}</b>
-							</div>
-						) : null}
-						{res.enabled.demount ? (
-							<div className='line'>
-								<span>Демонтаж</span>
-								<b>{fmt(res.parts.demount)}</b>
-							</div>
-						) : null}
-						{res.enabled.travel ? (
-							<div className='line'>
-								<span>Выезд/замер</span>
-								<b>{fmt(res.parts.travel)}</b>
-							</div>
-						) : null}
-						<div className='line total'>
-							<span>Итого</span>
-							<b>{fmt(res.total)}</b>
+				{/* Разбивка суммы */}
+				<div className='breakdown'>
+					{res.parts.glass ? (
+						<div className='line'>
+							<span>Зеркало, ~{res.m2.toFixed(2)} м²</span>
+							<b>{fmt(res.parts.glass)}</b>
 						</div>
+					) : null}
+					{res.enabled.edge ? (
+						<div className='line'>
+							<span>Кромка, ~{res.perim.toFixed(2)} м</span>
+							<b>{fmt(res.parts.edge)}</b>
+						</div>
+					) : null}
+					{res.enabled.mount ? (
+						<div className='line'>
+							<span>Монтаж</span>
+							<b>{fmt(res.parts.mount)}</b>
+						</div>
+					) : null}
+					{res.enabled.demount ? (
+						<div className='line'>
+							<span>Демонтаж</span>
+							<b>{fmt(res.parts.demount)}</b>
+						</div>
+					) : null}
+					{res.enabled.travel ? (
+						<div className='line'>
+							<span>Выезд/замер</span>
+							<b>{fmt(res.parts.travel)}</b>
+						</div>
+					) : null}
+					<div className='line total'>
+						<span>Итого</span>
+						<b>{fmt(res.total)}</b>
 					</div>
-				</section>
-
-				{/* Форма заявки с расчётом */}
-				<QuoteLeadForm quote={quotePayload} />
-			</div>
-		</section>
+				</div>
+			</section>
+			<section>
+				<div className='container'>
+					{/* Форма заявки с расчётом */}
+					<QuoteLeadForm quote={quotePayload} />
+				</div>
+			</section>
+		</div>
 	)
 }

@@ -2,12 +2,28 @@
 
 import Link from 'next/link'
 import { useState, useEffect } from 'react'
+import { usePathname } from 'next/navigation'
 
-// Компонент шапки сайта с логотипом, основной навигацией и бургер-меню
+// Нормализация пути: убираем хвостовой слэш, кроме корня
+const normalize = (s: string) => s.replace(/\/+$/, '') || '/'
+
+// Совпадение пути со ссылкой (подсвечиваем и вложенные маршруты)
+const makeIsActive = (pathname: string) => {
+	const p = normalize(pathname || '/')
+	return (href: string) => {
+		const h = normalize(href)
+		if (h === '/') return p === '/'
+		return p === h || p.startsWith(h + '/')
+	}
+}
+
 export default function Header() {
 	const [open, setOpen] = useState(false)
+	const [scrolled, setScrolled] = useState(false)
+	const pathname = usePathname()
+	const isActive = makeIsActive(pathname)
 
-	// При ресайзе окна — закрывать меню на десктопе
+	// Закрывать меню на десктопе
 	useEffect(() => {
 		const onResize = () => {
 			if (window.innerWidth > 860) setOpen(false)
@@ -16,27 +32,61 @@ export default function Header() {
 		return () => window.removeEventListener('resize', onResize)
 	}, [])
 
+	// Флаг «прокручено»
+	useEffect(() => {
+		const onScroll = () => setScrolled(window.scrollY > 6)
+		onScroll() // начальное состояние
+		window.addEventListener('scroll', onScroll, { passive: true })
+		return () => window.removeEventListener('scroll', onScroll)
+	}, [])
+
 	return (
-		<header className='header'>
+		<header className={`header header--glass ${scrolled ? 'is-scrolled' : ''}`}>
 			<div className='container header-inner'>
-				{/* Логотип/название компании (шрифт Myanmar MN) */}
-				<Link href='/' className='header-logo'>
+				{/* Лого */}
+				<Link
+					href='/'
+					className='header-logo'
+					aria-current={isActive('/') ? 'page' : undefined}
+				>
 					<span className='brand'>REFLA</span>
 					<span className='tagline'>ОТРАЖЕНИЕ В ВАШ ДОМ</span>
 				</Link>
 
-				{/* Основная навигация для десктопа */}
+				{/* Навигация */}
 				<nav className='nav' aria-label='Главная навигация'>
-					<Link href='/about/'>О нас</Link>
-					{/* <Link href='/examples/'>Примеры работ</Link> */}
-					<Link href='/pricing/'>Прайс-лист (смета)</Link>
-					<Link href='/contacts/'>Контакты</Link>
+					<Link
+						href='/about/'
+						className={`button ${isActive('/about/') ? '' : 'button--outline'}`}
+						aria-current={isActive('/about/') ? 'page' : undefined}
+					>
+						О нас
+					</Link>
+					<Link
+						href='/pricing/'
+						className={`button ${
+							isActive('/pricing/') ? '' : 'button--outline'
+						}`}
+						aria-current={isActive('/pricing/') ? 'page' : undefined}
+					>
+						Услуги
+					</Link>
+					<Link
+						href='/contacts/'
+						className={`button ${
+							isActive('/contacts/') ? '' : 'button--outline'
+						}`}
+						aria-current={isActive('/contacts/') ? 'page' : undefined}
+					>
+						Контакты
+					</Link>
 				</nav>
 
-				{/* Кнопка бургера для мобильной версии */}
+				{/* Бургер */}
 				<button
 					className='burger'
 					aria-label='Меню'
+					aria-expanded={open}
 					onClick={() => setOpen(!open)}
 				>
 					<svg width='20' height='20' viewBox='0 0 24 24' fill='none'>
@@ -47,19 +97,31 @@ export default function Header() {
 				</button>
 			</div>
 
-			{/* Выпадающее мобильное меню */}
+			{/* Мобильное меню */}
 			<div className={`mobile-menu ${open ? 'open' : ''}`}>
 				<div className='container'>
-					<Link href='/about/' onClick={() => setOpen(false)}>
+					<Link
+						href='/about/'
+						onClick={() => setOpen(false)}
+						className={isActive('/about/') ? 'active' : undefined}
+						aria-current={isActive('/about/') ? 'page' : undefined}
+					>
 						О нас
 					</Link>
-					{/* <Link href='/examples/' onClick={() => setOpen(false)}>
-						Примеры работ
-					</Link> */}
-					<Link href='/pricing/' onClick={() => setOpen(false)}>
+					<Link
+						href='/pricing/'
+						onClick={() => setOpen(false)}
+						className={isActive('/pricing/') ? 'active' : undefined}
+						aria-current={isActive('/pricing/') ? 'page' : undefined}
+					>
 						Прайс-лист (смета)
 					</Link>
-					<Link href='/contacts/' onClick={() => setOpen(false)}>
+					<Link
+						href='/contacts/'
+						onClick={() => setOpen(false)}
+						className={isActive('/contacts/') ? 'active' : undefined}
+						aria-current={isActive('/contacts/') ? 'page' : undefined}
+					>
 						Контакты
 					</Link>
 					<Link href='/request/' onClick={() => setOpen(false)}>

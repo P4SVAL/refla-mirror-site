@@ -1,4 +1,6 @@
+import { lastBlock } from 'app/page'
 import type { Metadata } from 'next'
+import Link from 'next/link'
 
 // Страница «О нас» — с бейджами, цветными плашками и живыми элементами
 export const metadata: Metadata = {
@@ -21,7 +23,7 @@ export default function About() {
 		{ label: 'Выполненных установок', value: '450 +' },
 		{ label: 'Средний срок монтажа', value: '2–3 часа' },
 		{ label: 'Гарантия', value: '12 месяцев' },
-		{ label: 'Оценка клиентов', value: '4.8 / 5' },
+		{ label: 'Оценка клиентов', value: '4,9 / 5' },
 	]
 
 	// «Как мы работаем»
@@ -86,45 +88,22 @@ export default function About() {
 	]
 
 	return (
-		<article className='card about'>
-			{/* Заголовок + вводный блок с бейджами */}
-			<header className='about__header'>
-				<div className='about__headline'>
-					<h1 className='about__title'>О нас</h1>
-					<div className='about__badges'>
-						<span className='about-badge about-badge--trust'>Надёжно</span>
-						<span className='about-badge about-badge--clean'>
-							Чистый монтаж
-						</span>
-						<span className='about-badge about-badge--safe'>Безопасно</span>
-					</div>
-				</div>
-				<p className='about__text'>
-					<b className='brand-text'>REFLA</b> — команда мастеров, которая
-					превращает входную дверь в элегантную и функциональную деталь
-					интерьера. Мы работаем с разными типами полотен и покрытий, подбираем
-					безопасные крепёжные решения и учитываем особенности вашего
-					пространства.
-				</p>
-				<div className='about__chips'>
-					<span className='chip'>Замер бесплатно в СПБ</span>
-					<span className='chip'>Точные сроки</span>
-					<span className='chip'>Гарантия 12 месяцев</span>
-				</div>
-			</header>
-
-			{/* Миссия и ценности — с мягкой плашкой */}
+		<div className='home home__grid'>
+			{/* О нас, описание, миссия */}
 			<section className='card about__section about__section--soft'>
-				<h2 className='about__section-title title-font'>Миссия и ценности</h2>
+				<h1 className='about__title'>
+					REFLA – команда мастеров, которая
+					превращает входную дверь в элегантную и функциональную деталь
+					интерьера.
+				</h1>
+				<br />
+				<h2 className='about__section-title title-font'>Миссия и ценности:</h2>
 				<p className='about__text'>
-					Наша миссия — сделать прихожую каждого дома стильной, удобной и
-					безопасной. Мы ценим качество, честность и индивидуальный подход.
+					Наша миссия — сделать прихожую Вашего дома стильной, удобной и
+					безопасной, ценим качество, честность и индивидуальный подход. Мы
+					работаем с разными типами полотен и покрытий, подбираем безопасные
+					крепёжные решения и учитываем особенности вашего пространства.
 				</p>
-				<div className='about__values'>
-					<span className='pill pill--accent'>Аккуратность</span>
-					<span className='pill pill--accent2'>Ответственность</span>
-					<span className='pill pill--muted'>Открытая смета</span>
-				</div>
 			</section>
 
 			{/* Цифры и факты — карточки с лентами */}
@@ -222,20 +201,7 @@ export default function About() {
 			</section>
 
 			{/* Финальный CTA */}
-			<section className='card about__cta'>
-				<div>
-					<div className='about__cta-title title-font'>
-						Готовы обсудить проект?
-					</div>
-					<div className='about__cta-subtitle'>
-						Оставьте заявку — мы предложим оптимальное решение под вашу дверь и
-						интерьер.
-					</div>
-				</div>
-				<a className='button' href='/request/'>
-					Оставить заявку
-				</a>
-			</section>
-		</article>
+			{lastBlock}
+		</div>
 	)
 }

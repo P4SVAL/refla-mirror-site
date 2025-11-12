@@ -16,7 +16,7 @@ export const metadata: Metadata = {
 // Страница "Контакты": телефоны, мессенджеры и ссылка на карту
 export default function Contacts() {
 	return (
-		<section className='card contacts'>
+		<section className='card contacts about__section about__section--soft'>
 			{/* Заголовок */}
 			<header className='contacts__head'>
 				<h1 className='contacts__title'>Контакты</h1>

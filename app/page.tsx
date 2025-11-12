@@ -1,6 +1,22 @@
 // pages/index.tsx
 import Link from 'next/link'
 
+export const lastBlock = (
+	<section className='card home__pitch'>
+		<div className='home__pitch-text'>
+			<div className='home__pitch-title title-font'>
+				Готовы обсудить проект?
+			</div>
+			<div className='home__pitch-subtitle'>
+				Оставьте заявку — мы предложим оптимальное решение под вашу дверь и
+				интерьер.
+			</div>
+			<Link className='button button--outline' href='/request/'>
+				Оставить заявку
+			</Link>
+		</div>
+	</section>
+)
 // Главная страница с плотным контентом без примеров работ
 export default function Home() {
 	// Карточки преимуществ
@@ -172,11 +188,11 @@ export default function Home() {
 				</div>
 
 				<div className='home__cta'>
-					<Link href='/request/'>
-						<span className='button'>Оставить заявку</span>
+					<Link className='button' href='/request/'>
+						Оставить заявку
 					</Link>
-					<Link href='/pricing/'>
-						<span className='button button--outline'>Рассчитать стоимость</span>
+					<Link className='button button--outline' href='/pricing/'>
+						Рассчитать стоимость
 					</Link>
 				</div>
 			</section>
@@ -212,7 +228,7 @@ export default function Home() {
 			</section>
 
 			{/* Гарантии */}
-			<section className='card home__why'>
+			{/* <section className='card home__why'>
 				<h2 className='home__why-title'>Наши гарантии</h2>
 				<div className='home__chips'>
 					{guarantees.map((g, i) => (
@@ -221,7 +237,7 @@ export default function Home() {
 						</span>
 					))}
 				</div>
-			</section>
+			</section> */}
 
 			{/* Отзывы (текстовые) */}
 			<section className='card home__why'>
@@ -257,20 +273,7 @@ export default function Home() {
 			</section>
 
 			{/* Заключительный призыв */}
-			<section className='card home__pitch'>
-				<div className='home__pitch-text'>
-					<div className='home__pitch-title title-font'>
-						Готовы обсудить проект?
-					</div>
-					<div className='home__pitch-subtitle'>
-						Оставьте заявку — мы предложим оптимальное решение под вашу дверь и
-						интерьер.
-					</div>
-				</div>
-				<Link href='/request/'>
-					<span className='button'>Оставить заявку</span>
-				</Link>
-			</section>
+			{lastBlock}
 		</div>
 	)
 }

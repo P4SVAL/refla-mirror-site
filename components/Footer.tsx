@@ -9,7 +9,7 @@ export default function Footer() {
 				{/* Копирайт */}
 				<div>
 					<b className='brand-text'>REFLA</b> – установка зеркал на входные
-					двери, все права защищены created by PASVAL © {year} г.
+					двери, все права защищены created by vexel © {year} г.
 				</div>
 
 				{/* Быстрые ссылки */}

@@ -1,3 +1,6 @@
+@import 'tailwindcss';
+@plugin "daisyui";
+
 /* ==========================================================================
    Токены темы (цвета, типографика, радиусы, анимации)
    ========================================================================== */
@@ -25,7 +28,7 @@
 	--font-body: 'TeX Gyre Pagella', serif; /* подставится от next/font/local */
 
 	/* Отступы */
-	--margin-main: ''
+	--margin-main: '';
 }
 
 /* ==========================================================================
@@ -51,7 +54,6 @@ body,
 
 body {
 	margin: 0;
-	background: var(--bg);
 	color: var(--text);
 	font-family: var(--font-body);
 	font-weight: 400;
@@ -172,7 +174,7 @@ h6 {
 .grid {
 	display: grid;
 	grid-template-columns: 1fr; /* mobile-first */
-	gap: 16px;
+	gap: 20px;
 }
 
 .card {
@@ -180,6 +182,7 @@ h6 {
 	border: 1px solid var(--border);
 	border-radius: var(--radius);
 	box-shadow: 0 8px 24px var(--shadow);
+	gap: 20px;
 }
 
 .screen {
@@ -219,7 +222,6 @@ h6 {
 	background: #fafbfc;
 	transition: border-color var(--transition), box-shadow var(--transition),
 		background var(--transition);
-	font: inherit;
 }
 .input:focus,
 .textarea:focus {
@@ -312,8 +314,9 @@ h6 {
 	background: var(--card);
 	border-bottom: 1px solid var(--border);
 	box-shadow: 0 4px 12px var(--shadow);
-	padding: 4px 0 8px 0;
+	padding: 20px;
 	border-radius: var(--radius);
+	margin-bottom: 24px;
 }
 .header-inner {
 	display: flex;
@@ -326,26 +329,12 @@ h6 {
 	flex-direction: column;
 	align-items: center;
 	justify-content: center;
-	margin-left: 20px;
 }
 
 .nav {
 	display: flex;
-	gap: 20px;
+	gap: 16px;
 	align-items: center;
-	margin-right: 20px;
-}
-.nav a {
-	padding: 10px 12px;
-	border-radius: var(--radius);
-	color: var(--text);
-	border: 1px solid transparent;
-	transition: background var(--transition), border-color var(--transition),
-		color var(--transition);
-}
-.nav a:hover {
-	background: var(--accent);
-	color: var(--bg);
 }
 
 .burger {
@@ -429,7 +418,7 @@ h6 {
    ========================================================================== */
 .home__grid {
 	display: grid;
-	gap: 24px;
+	gap: 20px;
 }
 
 /* HERO */
@@ -530,7 +519,7 @@ h6 {
 	margin: 0 0 12px;
 }
 .home__why-item {
-	padding: 14px;
+	padding: 20px;
 	position: relative;
 	overflow: hidden;
 	margin: 0;
@@ -575,16 +564,12 @@ h6 {
 /* Подзаголовок / Пич */
 .home__pitch {
 	padding: 20px;
-	display: flex;
-	align-items: center;
-	justify-content: space-between;
-	gap: 10px;
-	flex-wrap: wrap;
 }
 .home__pitch-text {
 	display: flex;
-	flex-direction: column;
-	gap: 14px;
+	flex-direction: row;
+	gap: 20px;
+	align-items: center;
 }
 .home__pitch-title {
 	font-size: 22px;
@@ -871,8 +856,7 @@ h6 {
 .cards {
 	display: grid;
 	grid-template-columns: repeat(3, 1fr);
-	gap: 16px;
-	margin-top: 16px;
+	gap: 20px;
 }
 
 .pricing__region {
@@ -902,25 +886,27 @@ h6 {
 
 /* Сервисная карточка */
 .service {
+	display: flex;
+	flex-direction: column;
+	gap: 16px;
 	position: relative;
-	padding: 16px;
+	padding: 20px;
 	text-align: left;
-	border-radius: var(--radius);
-	border: 1px solid var(--border);
-	background: var(--card);
 	box-shadow: 0 8px 24px var(--shadow);
 	transition: transform var(--transition), box-shadow var(--transition),
 		border-color var(--transition), background var(--transition);
 	overflow: hidden; /* чтобы ленты не торчали */
-	display: flex;
-	flex-direction: column;
-	justify-content: space-between;
 }
 .service:hover {
 	transform: translateY(-2px);
 	box-shadow: 0 12px 30px var(--shadow);
 	border-color: var(--accent);
-	background: linear-gradient(0deg, rgba(31, 122, 140, 0.06), rgba(31, 122, 140, 0.06)), var(--card);
+	background: linear-gradient(
+			0deg,
+			rgba(31, 122, 140, 0.06),
+			rgba(31, 122, 140, 0.06)
+		),
+		var(--card);
 }
 .service.active {
 	border-color: var(--accent);
@@ -935,10 +921,10 @@ h6 {
 /* Галочка выбора */
 .checkmark {
 	position: absolute;
-	top: 10px;
-	left: 10px;
-	width: 24px;
-	height: 24px;
+	top: 20px;
+	right: 20px;
+	width: 20px;
+	height: 20px;
 	border: 1px solid var(--border);
 	border-radius: 6px;
 	display: flex;
@@ -987,20 +973,15 @@ h6 {
 }
 .service-title {
 	font-weight: 600;
+	color: var(--accent-2);
 }
 .service-desc {
 	color: var(--muted);
-	margin-top: 6px;
 }
 .service-price {
-	margin-top: 10px;
 	font-size: 16px;
 }
-.included {
-	padding-left: 10px;
-}
 .note {
-	margin-top: 8px;
 	color: var(--muted);
 	font-size: 14px;
 }
@@ -1013,9 +994,8 @@ h6 {
 
 /* Бейджи цен */
 .badge {
-	display: inline-block;
-	padding: 2px 8px;
-	border-radius: 8px;
+	border-radius: var(--radius);
+	padding: 4px 10px;
 	font-size: 12px;
 	border: 1px solid var(--border);
 }
@@ -1038,8 +1018,7 @@ h6 {
 
 /* Калькулятор */
 .calc {
-	margin-top: 18px;
-	padding: 18px;
+	padding: 20px;
 }
 .calc-inner {
 	display: flex;
@@ -1146,8 +1125,7 @@ h6 {
 }
 
 .quoteform {
-	padding: 18px;
-	margin-top: 18px;
+	padding: 20px;
 }
 .quoteform__title {
 	margin-top: 0;
@@ -1172,18 +1150,19 @@ h6 {
 .about {
 	padding: 20px;
 	display: grid;
-	gap: 22px;
+	gap: 20px;
 }
 
 /* Заголовок + бейджи/чипы */
 .about__header {
 	display: grid;
+	gap: 20px;
 }
 .about__headline {
 	display: flex;
 	align-items: center;
 	justify-content: space-between;
-	gap: 12px;
+	gap: 16px;
 	flex-wrap: wrap;
 }
 .about__title {
@@ -1225,7 +1204,7 @@ h6 {
 
 .about__chips {
 	display: flex;
-	gap: 8px;
+	gap: 16px;
 	flex-wrap: wrap;
 }
 .chip {
@@ -1240,7 +1219,7 @@ h6 {
 
 /* Разделы */
 .about__section {
-	padding: 16px;
+	padding: 20px;
 }
 .about__section--soft {
 	background: linear-gradient(
@@ -1470,6 +1449,7 @@ h6 {
 	}
 }
 
+
 /* footer */
 @media (max-width: 860px) {
 	.container-footer {
@@ -1559,4 +1539,66 @@ h6 {
 	.service-title {
 		font-size: 16px;
 	}
+	.home__pitch-text {
+		font-size: 12px;
+		flex-direction: column;
+		gap: 20px;
+	}
+	.home__pitch-title {
+		font-size: 16px;
+		align-self: baseline;
+	}
+}
+
+
+/* Testing glass on HEADER
+
+/* =======================
+   Glassmorphism Header
+   ======================= */
+.header.header--glass {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: rgba(255, 255, 255, 0.25); /* более прозрачное стекло */
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.25);
+  backdrop-filter: blur(16px) saturate(180%);
+  -webkit-backdrop-filter: blur(16px) saturate(180%);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+  transition:
+    background var(--transition),
+    border-color var(--transition),
+    box-shadow var(--transition),
+    backdrop-filter var(--transition);
+}
+
+/* Эффект при прокрутке — стекло становится плотнее и чуть теплее */
+.header.header--glass.is-scrolled {
+  background: rgba(255, 255, 255, 0.55);
+  border-color: rgba(255, 255, 255, 0.4);
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.12);
+  backdrop-filter: blur(2px) saturate(200%);
+}
+
+/* Дополнительный штрих — лёгкий градиент сверху для глубины */
+.header.header--glass::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to bottom,
+    rgba(255, 255, 255, 0.4),
+    rgba(255, 255, 255, 0.15)
+  );
+  pointer-events: none;
+  z-index: -1;
+  border-radius: inherit;
+}
+
+/* Адаптив: без скругления на мобильных */
+@media (max-width: 860px) {
+  .header.header--glass {
+    border-radius: 0;
+  }
 }

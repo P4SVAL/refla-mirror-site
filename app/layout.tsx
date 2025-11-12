@@ -1,6 +1,6 @@
 import type { Metadata } from 'next'
-import 'styles/globals.css' // или './globals.css' — выбери ОДИН импорт
-import Header from 'components/Header' // если нет alias '@', оставь ../components/Header
+import 'app/globals.css'
+import Header from 'components/Header'
 import Footer from 'components/Footer'
 import { brandFont, bodyFont } from 'styles/fonts'
 
