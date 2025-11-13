@@ -24,11 +24,13 @@ export default function RootLayout({
 	children: React.ReactNode
 }) {
 	return (
-		<html lang='ru'>
+		<html lang='ru' data-theme='light'>
 			<body className={`${brandFont.variable} ${bodyFont.variable}`}>
-				<Header />
-				<main className='container app-main'>{children}</main>
-				<Footer />
+				<main className='container app-main'>
+					<Header />
+					{children}
+					<Footer />
+				</main>
 			</body>
 		</html>
 	)

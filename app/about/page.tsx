@@ -1,6 +1,5 @@
 import { lastBlock } from 'app/page'
 import type { Metadata } from 'next'
-import Link from 'next/link'
 
 // Страница «О нас» — с бейджами, цветными плашками и живыми элементами
 export const metadata: Metadata = {
@@ -92,11 +91,9 @@ export default function About() {
 			{/* О нас, описание, миссия */}
 			<section className='card about__section about__section--soft'>
 				<h1 className='about__title'>
-					REFLA – команда мастеров, которая
-					превращает входную дверь в элегантную и функциональную деталь
-					интерьера.
+					REFLA – команда мастеров, которая превращает входную дверь в
+					элегантную и функциональную деталь интерьера.
 				</h1>
-				<br />
 				<h2 className='about__section-title title-font'>Миссия и ценности:</h2>
 				<p className='about__text'>
 					Наша миссия — сделать прихожую Вашего дома стильной, удобной и

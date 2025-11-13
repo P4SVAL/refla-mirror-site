@@ -6,6 +6,7 @@
    ========================================================================== */
 :root {
 	/* Цвета */
+	color-scheme: light;
 	--bg: #f6f7f9;
 	--text: #212121;
 	--muted: #6b7280;
@@ -165,6 +166,12 @@ h6 {
 	row-gap: 20px;
 }
 
+.app-main {
+	display: flex;
+	flex-direction: column;
+	gap: 20px;
+}
+
 .container {
 	width: 100%;
 	max-width: var(--container);
@@ -312,11 +319,13 @@ h6 {
 	inset-inline: 0;
 	border-radius: 0;
 	background: var(--card);
-	border-bottom: 1px solid var(--border);
 	box-shadow: 0 4px 12px var(--shadow);
 	padding: 20px;
 	border-radius: var(--radius);
-	margin-bottom: 24px;
+	transition:
+		background-color 0.4s ease,
+		box-shadow 0.4s ease,
+		backdrop-filter 0.4s ease;
 }
 .header-inner {
 	display: flex;
@@ -329,6 +338,13 @@ h6 {
 	flex-direction: column;
 	align-items: center;
 	justify-content: center;
+}
+
+.is-scrolled {
+	background: rgba(255, 255, 255, 0.55);
+	border-color: rgba(255, 255, 255, 0.4);
+	box-shadow: 0 12px 28px rgba(0, 0, 0, 0.12);
+	backdrop-filter: blur(1px) saturate(200%);
 }
 
 .nav {
@@ -867,9 +883,10 @@ h6 {
 
 .pricing__hero {
 	display: flex;
-	justify-content: space-between;
-	align-items: center;
+	flex-direction: column;
+	gap: 20px;
 }
+
 .pricing__hero-title {
 	margin: 0;
 }
@@ -1060,9 +1077,9 @@ h6 {
 }
 
 .breakdown {
-	margin-top: 12px;
-	padding-top: 12px;
+	padding: 20px;
 }
+
 .line {
 	display: flex;
 	align-items: center;
@@ -1445,10 +1462,9 @@ h6 {
 		margin-right: 20px;
 	}
 	.header {
-		border-radius: 0;
+		border-radius: 0px 0px 10px 10px;
 	}
 }
-
 
 /* footer */
 @media (max-width: 860px) {
@@ -1494,7 +1510,7 @@ h6 {
 /* contacts: сетка */
 @media (max-width: 760px) {
 	.contacts__grid {
-		grid-template-columns: 1fr;
+		grid-template-columns: repeat(1, 1fr);
 	}
 }
 
@@ -1508,12 +1524,12 @@ h6 {
 @media (max-width: 640px) {
 	.pricing__cards,
 	.cards {
-		grid-template-columns: 1fr;
+		grid-template-columns: repeat(1, 1fr);
 	}
 }
 
 /* calc-grid: сетка */
-@media (max-width: 990px) {
+/* @media (max-width: 990px) {
 	.calc-grid {
 		grid-template-columns: repeat(2, 1fr);
 	}
@@ -1522,7 +1538,7 @@ h6 {
 	.calc-grid {
 		grid-template-columns: 1fr;
 	}
-}
+} */
 
 /* about: мелочи */
 @media (max-width: 640px) {
@@ -1548,57 +1564,4 @@ h6 {
 		font-size: 16px;
 		align-self: baseline;
 	}
-}
-
-
-/* Testing glass on HEADER
-
-/* =======================
-   Glassmorphism Header
-   ======================= */
-.header.header--glass {
-  position: sticky;
-  top: 0;
-  z-index: 100;
-  background: rgba(255, 255, 255, 0.25); /* более прозрачное стекло */
-  border: 1px solid rgba(255, 255, 255, 0.3);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.25);
-  backdrop-filter: blur(16px) saturate(180%);
-  -webkit-backdrop-filter: blur(16px) saturate(180%);
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
-  transition:
-    background var(--transition),
-    border-color var(--transition),
-    box-shadow var(--transition),
-    backdrop-filter var(--transition);
-}
-
-/* Эффект при прокрутке — стекло становится плотнее и чуть теплее */
-.header.header--glass.is-scrolled {
-  background: rgba(255, 255, 255, 0.55);
-  border-color: rgba(255, 255, 255, 0.4);
-  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.12);
-  backdrop-filter: blur(2px) saturate(200%);
-}
-
-/* Дополнительный штрих — лёгкий градиент сверху для глубины */
-.header.header--glass::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(
-    to bottom,
-    rgba(255, 255, 255, 0.4),
-    rgba(255, 255, 255, 0.15)
-  );
-  pointer-events: none;
-  z-index: -1;
-  border-radius: inherit;
-}
-
-/* Адаптив: без скругления на мобильных */
-@media (max-width: 860px) {
-  .header.header--glass {
-    border-radius: 0;
-  }
 }

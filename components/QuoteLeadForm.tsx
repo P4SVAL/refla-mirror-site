@@ -1,5 +1,6 @@
 import * as React from 'react'
 
+
 type Region = 'spb' | 'area'
 type Parts = {
 	glass: number
@@ -153,6 +154,7 @@ export default function QuoteLeadForm({ quote }: { quote: Quote }) {
 				<label>
 					Не заполняйте это поле
 					<input
+						suppressHydrationWarning
 						tabIndex={-1}
 						autoComplete='off'
 						value={hp}
@@ -169,6 +171,7 @@ export default function QuoteLeadForm({ quote }: { quote: Quote }) {
 						Ваше имя *
 					</label>
 					<input
+						suppressHydrationWarning
 						className='input'
 						id='name'
 						required
@@ -183,6 +186,7 @@ export default function QuoteLeadForm({ quote }: { quote: Quote }) {
 						Контакт (телефон или e-mail) *
 					</label>
 					<input
+						suppressHydrationWarning
 						className='input'
 						id='contact'
 						required
@@ -205,6 +209,7 @@ export default function QuoteLeadForm({ quote }: { quote: Quote }) {
 						Адрес установки *
 					</label>
 					<input
+						suppressHydrationWarning
 						className='input'
 						id='address'
 						required
@@ -219,6 +224,7 @@ export default function QuoteLeadForm({ quote }: { quote: Quote }) {
 						Смета (автоматически)
 					</label>
 					<textarea
+						suppressHydrationWarning
 						id='estimate'
 						className='textarea'
 						rows={10}
@@ -236,6 +242,7 @@ export default function QuoteLeadForm({ quote }: { quote: Quote }) {
 						Ваши пожелания
 					</label>
 					<textarea
+						suppressHydrationWarning
 						id='notes'
 						className='textarea'
 						rows={6}

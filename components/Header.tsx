@@ -35,23 +35,32 @@ export default function Header() {
 	// Флаг «прокручено»
 	useEffect(() => {
 		const onScroll = () => setScrolled(window.scrollY > 6)
-		onScroll() // начальное состояние
+		onScroll()
 		window.addEventListener('scroll', onScroll, { passive: true })
 		return () => window.removeEventListener('scroll', onScroll)
 	}, [])
+
+	const onHome = isActive('/')
 
 	return (
 		<header className={`header header--glass ${scrolled ? 'is-scrolled' : ''}`}>
 			<div className='container header-inner'>
 				{/* Лого */}
-				<Link
-					href='/'
-					className='header-logo'
-					aria-current={isActive('/') ? 'page' : undefined}
-				>
-					<span className='brand'>REFLA</span>
-					<span className='tagline'>ОТРАЖЕНИЕ В ВАШ ДОМ</span>
-				</Link>
+				{onHome ? (
+					<span className='header-logo' aria-current='page'>
+						<span className='brand'>REFLA</span>
+						<span className='tagline'>ОТРАЖЕНИЕ В ВАШ ДОМ</span>
+					</span>
+				) : (
+					<Link
+						href='/'
+						className='header-logo'
+						aria-current={isActive('/') ? 'page' : undefined}
+					>
+						<span className='brand'>REFLA</span>
+						<span className='tagline'>ОТРАЖЕНИЕ В ВАШ ДОМ</span>
+					</Link>
+				)}
 
 				{/* Навигация */}
 				<nav className='nav' aria-label='Главная навигация'>
@@ -114,7 +123,7 @@ export default function Header() {
 						className={isActive('/pricing/') ? 'active' : undefined}
 						aria-current={isActive('/pricing/') ? 'page' : undefined}
 					>
-						Прайс-лист (смета)
+						Услуги
 					</Link>
 					<Link
 						href='/contacts/'
