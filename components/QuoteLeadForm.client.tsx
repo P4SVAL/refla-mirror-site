@@ -3,7 +3,7 @@
 import dynamic from 'next/dynamic'
 
 const QuoteLeadForm = dynamic(() => import('./QuoteLeadForm'), {
-	ssr: false, // 👈 форма рендерится только на клиенте
+  ssr: false, // 👈 форма рендерится только на клиенте
 })
 
 export default QuoteLeadForm

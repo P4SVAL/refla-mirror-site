@@ -2,36 +2,46 @@ import type { Metadata } from 'next'
 import 'app/globals.css'
 import Header from 'components/Header'
 import Footer from 'components/Footer'
-import { brandFont, bodyFont } from 'styles/fonts'
+import './globals.css'
+import { Manrope, Nunito_Sans } from 'next/font/google'
+
+const manrope = Manrope({
+  subsets: ['latin', 'cyrillic'],
+  variable: '--font-manrope',
+  display: 'swap',
+  preload: false,
+})
+
+const nunito = Nunito_Sans({
+  subsets: ['latin', 'cyrillic'],
+  variable: '--font-nunito',
+  display: 'swap',
+  preload: false,
+})
 
 export const metadata: Metadata = {
-	title: 'REFLA – ОТРАЖЕНИЕ В ВАШ ДОМ',
-	description:
-		'REFLA — установка зеркал на входные двери. Красиво, безопасно, быстро.',
-	icons: {
-		icon: [
-			{ url: '/favicon.ico' },
-			{
-				url: "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🪞</text></svg>",
-			},
-		],
-	},
+  title: 'REFLA – ОТРАЖЕНИЕ В ВАШ ДОМ',
+  description: 'REFLA — установка зеркал на входные двери. Красиво, безопасно, быстро.',
+  icons: {
+    icon: [
+      { url: '/favicon.ico' },
+      {
+        url: "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🪞</text></svg>",
+      },
+    ],
+  },
 }
 
-export default function RootLayout({
-	children,
-}: {
-	children: React.ReactNode
-}) {
-	return (
-		<html lang='ru' data-theme='light'>
-			<body className={`${brandFont.variable} ${bodyFont.variable}`}>
-				<main className='container app-main'>
-					<Header />
-					{children}
-					<Footer />
-				</main>
-			</body>
-		</html>
-	)
+export default function RootLayout({ children }: { children: React.ReactNode }) {
+  return (
+    <html lang='ru' data-theme='light'>
+      <body className={`${manrope.variable} ${nunito.variable}`}>
+        <main className='container app-main'>
+          <Header />
+          {children}
+          <Footer />
+        </main>
+      </body>
+    </html>
+  )
 }
