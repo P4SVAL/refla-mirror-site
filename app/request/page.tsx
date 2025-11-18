@@ -3,17 +3,19 @@ import LeadForm from 'components/LeadForm'
 // Страница "Оставить заявку": отдельный маршрут с формой
 export default function RequestPage() {
   return (
-    <section className='request'>
-      {/* Заголовок страницы */}
-      <h1 className='request__title'>Оставить заявку</h1>
+    <div>
+      <section className='home home__grid'>
+        {/* Заголовок страницы */}
+        <div className='card about__section about__section--soft'>
+          <h1 className='page-title'>Заявка без калькуляции</h1>
+        </div>
 
-      {/* Форма заявки */}
-      <LeadForm />
+        {/* Форма заявки */}
+        <LeadForm />
 
-      {/* Подсказка про обработку данных */}
-      <div className='helper'>
-        * Нажимая «Отправить заявку», вы соглашаетесь с политикой обработки персональных данных.
-      </div>
-    </section>
+        {/* Подсказка про обработку данных */}
+        
+      </section>
+    </div>
   )
 }

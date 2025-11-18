@@ -192,7 +192,6 @@ h6 {
 .helper {
   color: var(--muted);
   font-size: 14px;
-  margin-left: 8px;
   opacity: 0.5;
 }
 .page-title {
@@ -433,7 +432,9 @@ main {
   justify-content: center;
   gap: 4px;
 }
-
+.header-logo[aria-current='page'] {
+  color: var(--accent);
+}
 .is-scrolled {
   background: (var(--gradient), 0.5);
   backdrop-filter: blur(2px) saturate(180%);

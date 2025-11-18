@@ -231,6 +231,9 @@ export default function LeadForm() {
         {success && <div className='success'>{success}</div>}
         {error && <div className='error'>{error}</div>}
       </div>
+      <div className='helper'>
+        * Нажимая «Отправить заявку», вы соглашаетесь с политикой обработки персональных данных.
+      </div>
     </form>
   )
 }

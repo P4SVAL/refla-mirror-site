@@ -2,7 +2,7 @@ import type { Metadata } from 'next'
 import { PricingClient } from './page-client'
 
 export const metadata: Metadata = {
-  title: 'REFLA – УСЛУГИ',
+  title: 'REFLA – ПРАЙС',
   description: 'REFLA — установка зеркал на входные двери. Красиво, безопасно, быстро.',
   icons: {
     icon: [

@@ -72,7 +72,7 @@ export default function Header() {
             className={`button ${isActive('/pricing/') ? '' : 'button--outline'}`}
             aria-current={isActive('/pricing/') ? 'page' : undefined}
           >
-            Услуги
+            Прайс
           </Link>
           <Link
             href='/contacts/'
